@@ -169,6 +169,7 @@ export const Card = (): JSX.Element => {
   const [activeVolume, setActiveVolume] = useState<number>(50);
   const [activeThumb, setActiveThumb] = useState<number>(0);
   const [cartAdded, setCartAdded] = useState(false);
+  const [oneClickDone, setOneClickDone] = useState(false);
   const [wishlistActive, setWishlistActive] = useState(false);
   const [likedReviews, setLikedReviews] = useState<Set<number>>(new Set());
 
@@ -183,6 +184,11 @@ export const Card = (): JSX.Element => {
   const handleAddToCart = () => {
     setCartAdded(true);
     setTimeout(() => setCartAdded(false), 2000);
+  };
+
+  const handleOneClick = () => {
+    setOneClickDone(true);
+    setTimeout(() => setOneClickDone(false), 2500);
   };
 
   const toggleLike = (index: number) => {
@@ -491,26 +497,68 @@ export const Card = (): JSX.Element => {
               <img className="w-3 h-3 flex-shrink-0 ml-2 transition-transform group-hover:translate-x-[2px]" alt="" src="/figmaAssets/outline---arrows---arrow-right.svg" />
             </button>
 
-            {/* Cart row */}
-            <div className="flex items-center gap-[5px] w-full">
+            {/* CTA group — 3-level hierarchy */}
+            <div className="flex flex-col gap-[7px] w-full">
+
+              {/* PRIMARY: Купить в 1 клик */}
               <button
-                onClick={handleAddToCart}
-                className={`flex w-[476px] h-[49px] items-center justify-center gap-2.5 px-[27px] rounded-[10px] cursor-pointer transition-all duration-200 active:scale-[0.98] flex-shrink-0 ${
-                  cartAdded
-                    ? "bg-[#78b72a] hover:bg-[#6aaa22]"
-                    : "bg-[#3c3c50] hover:bg-[#2e2e40]"
+                onClick={handleOneClick}
+                className={`flex w-full h-[49px] items-center justify-center gap-2 rounded-[10px] cursor-pointer transition-all duration-200 active:scale-[0.98] ${
+                  oneClickDone
+                    ? "bg-[#78b72a]"
+                    : "bg-[#3c3c50] hover:bg-[#323244]"
                 }`}
               >
-                <span className="[font-family:'Cera_Pro-Medium',Helvetica] font-medium text-white text-sm leading-[16.1px] whitespace-nowrap">
-                  {cartAdded ? "ДОБАВЛЕНО ✓" : "В КОРЗИНУ"}
+                {!oneClickDone && (
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="flex-shrink-0 opacity-70">
+                    <path d="M7 1v12M1 7h12" stroke="white" strokeWidth="1.6" strokeLinecap="round"/>
+                  </svg>
+                )}
+                <span className="[font-family:'Cera_Pro-Medium',Helvetica] font-medium text-white text-sm leading-[16.1px] whitespace-nowrap tracking-[0.3px]">
+                  {oneClickDone ? "ЗАЯВКА ПРИНЯТА ✓" : "КУПИТЬ В 1 КЛИК"}
                 </span>
               </button>
-              <button
-                onClick={() => setWishlistActive(!wishlistActive)}
-                className={`w-12 h-12 flex-shrink-0 cursor-pointer transition-all active:scale-90 ${wishlistActive ? "opacity-100 hover:opacity-80" : "opacity-70 hover:opacity-100"}`}
-              >
-                <img className="w-12 h-12" alt="Wishlist" src="/figmaAssets/wishlist-1.svg" />
-              </button>
+
+              {/* SECONDARY + TERTIARY row */}
+              <div className="flex items-center gap-[7px] w-full">
+                {/* Secondary: В корзину */}
+                <button
+                  onClick={handleAddToCart}
+                  className={`flex flex-1 h-[44px] items-center justify-center gap-2 px-[27px] rounded-[10px] cursor-pointer border transition-all duration-200 active:scale-[0.98] ${
+                    cartAdded
+                      ? "border-[#78b72a] bg-[#f6fbef] text-[#5e9320]"
+                      : "border-[#e0e0ec] bg-[#f8f8fc] hover:bg-[#f0eff9] hover:border-[#c8c8dc] text-[#3c3c50]"
+                  }`}
+                >
+                  <span className="[font-family:'Cera_Pro-Regular',Helvetica] font-normal text-sm leading-[16.1px] whitespace-nowrap">
+                    {cartAdded ? "Добавлено ✓" : "В корзину"}
+                  </span>
+                </button>
+
+                {/* Tertiary: Wishlist */}
+                <button
+                  onClick={() => setWishlistActive(!wishlistActive)}
+                  className={`w-[44px] h-[44px] flex items-center justify-center flex-shrink-0 rounded-[10px] border transition-all duration-200 active:scale-[0.95] cursor-pointer ${
+                    wishlistActive
+                      ? "border-[#e40646]/30 bg-[#fff5f7]"
+                      : "border-[#e0e0ec] bg-[#f8f8fc] hover:bg-[#f0eff9] hover:border-[#c8c8dc]"
+                  }`}
+                >
+                  <svg
+                    width="18" height="16" viewBox="0 0 18 16" fill="none"
+                    className={`transition-colors duration-200 ${wishlistActive ? "fill-[#e40646]" : "fill-none"}`}
+                  >
+                    <path
+                      d="M9 14.5C9 14.5 1.5 9.5 1.5 4.75C1.5 3.09315 2.83579 1.75 4.5 1.75C5.98553 1.75 7.24398 2.73093 7.7 4.0625H10.3C10.756 2.73093 12.0145 1.75 13.5 1.75C15.1642 1.75 16.5 3.09315 16.5 4.75C16.5 9.5 9 14.5 9 14.5Z"
+                      stroke={wishlistActive ? "#e40646" : "#3c3c50"}
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+
             </div>
           </div>
         </div>

@@ -241,7 +241,7 @@ export const Card = (): JSX.Element => {
         </div>
 
         {/* Main navigation */}
-        <nav className="flex w-[1360px] items-center justify-between absolute top-[67px] left-[80px]">
+        <nav className="flex w-[1440px] items-center justify-between absolute top-[67px] left-[40px]">
           {navItems.map((item) => (
             <button key={item} className="group cursor-pointer">
               <span className="[font-family:'Cera_Pro-Medium',Helvetica] font-medium text-[#3c3c50] text-xs leading-[13.8px] whitespace-nowrap transition-opacity group-hover:opacity-60">
@@ -260,9 +260,9 @@ export const Card = (): JSX.Element => {
         </button>
 
         {/* Catalog button */}
-        <button className="inline-flex h-10 items-center justify-center gap-2.5 px-[35px] absolute top-[101px] left-[118px] bg-[#3c3c50] rounded-[50px] transition-all hover:bg-[#2e2e40] active:scale-[0.98] cursor-pointer">
-          <img className="w-3.5 h-3.5 flex-shrink-0" alt="" src="/figmaAssets/bold---settings--fine-tuning---widget-3.svg" />
-          <span className="[font-family:'Cera_Pro-Medium',Helvetica] font-medium text-white text-xs leading-[13.8px] whitespace-nowrap">
+        <button className="inline-flex h-10 items-center justify-center gap-[7px] px-[22px] absolute top-[101px] left-[118px] bg-[#3c3c50] rounded-[50px] transition-all hover:bg-[#2e2e40] active:scale-[0.98] cursor-pointer">
+          <img className="w-3.5 h-3.5 flex-shrink-0 brightness-0 invert" alt="" src="/figmaAssets/bold---settings--fine-tuning---widget-3.svg" />
+          <span className="[font-family:'Cera_Pro-Medium',Helvetica] font-medium text-white text-[11px] leading-[13px] whitespace-nowrap tracking-[0.5px]">
             КАТАЛОГ
           </span>
         </button>
@@ -503,19 +503,14 @@ export const Card = (): JSX.Element => {
               {/* PRIMARY: Купить в 1 клик */}
               <button
                 onClick={handleOneClick}
-                className={`flex w-full h-[49px] items-center justify-center gap-2 rounded-[10px] cursor-pointer transition-all duration-200 active:scale-[0.98] ${
+                className={`flex w-full h-[49px] items-center justify-center rounded-[10px] cursor-pointer transition-all duration-200 active:scale-[0.98] ${
                   oneClickDone
                     ? "bg-[#78b72a]"
                     : "bg-[#3c3c50] hover:bg-[#323244]"
                 }`}
               >
-                {!oneClickDone && (
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="flex-shrink-0 opacity-70">
-                    <path d="M7 1v12M1 7h12" stroke="white" strokeWidth="1.6" strokeLinecap="round"/>
-                  </svg>
-                )}
-                <span className="[font-family:'Cera_Pro-Medium',Helvetica] font-medium text-white text-sm leading-[16.1px] whitespace-nowrap tracking-[0.3px]">
-                  {oneClickDone ? "ЗАЯВКА ПРИНЯТА ✓" : "КУПИТЬ В 1 КЛИК"}
+                <span className="[font-family:'Cera_Pro-Medium',Helvetica] font-medium text-white text-sm leading-[16.1px] whitespace-nowrap">
+                  {oneClickDone ? "Заявка принята ✓" : "Купить в 1 клик"}
                 </span>
               </button>
 
